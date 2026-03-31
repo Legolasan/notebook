@@ -15,6 +15,7 @@ interface NotebookPageProps {
 
 export function NotebookPage({ page, onChange, isEditing, setIsEditing }: NotebookPageProps) {
   const [quote, setQuote] = useState(getRandomQuote());
+  const [showHelp, setShowHelp] = useState(false);
 
   useEffect(() => {
     setQuote(getRandomQuote());
@@ -30,7 +31,52 @@ export function NotebookPage({ page, onChange, isEditing, setIsEditing }: Notebo
   };
 
   return (
-    <div className="h-full flex flex-col bg-[#fffef8] rounded-r-sm shadow-inner">
+    <div className="h-full flex flex-col bg-[#fffef8] rounded-r-sm shadow-inner relative">
+      {/* Help Toggle Button */}
+      <button
+        onClick={() => setShowHelp(!showHelp)}
+        className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-stone-200 hover:bg-stone-300
+                   flex items-center justify-center text-stone-600 text-sm font-bold transition-colors"
+        title="Markdown Help"
+      >
+        ?
+      </button>
+
+      {/* Markdown Help Sidebar */}
+      {showHelp && (
+        <div className="absolute top-14 right-4 z-20 w-56 bg-white rounded-lg shadow-lg border border-stone-200 p-4">
+          <h3 className="font-semibold text-stone-800 mb-3 text-sm">Markdown Shortcuts</h3>
+          <div className="space-y-2 text-xs text-stone-600">
+            <div className="flex justify-between">
+              <span className="font-mono bg-stone-100 px-1 rounded">Ctrl+B</span>
+              <span>**Bold**</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="font-mono bg-stone-100 px-1 rounded">Ctrl+I</span>
+              <span>*Italic*</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="font-mono bg-stone-100 px-1 rounded">Ctrl+K</span>
+              <span>[Link](url)</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="font-mono bg-stone-100 px-1 rounded">Ctrl+`</span>
+              <span>`Code`</span>
+            </div>
+            <hr className="my-2 border-stone-200" />
+            <p className="text-stone-500 font-medium">Markdown Syntax</p>
+            <div className="space-y-1">
+              <p><span className="font-mono"># </span>Heading 1</p>
+              <p><span className="font-mono">## </span>Heading 2</p>
+              <p><span className="font-mono">- </span>Bullet list</p>
+              <p><span className="font-mono">1. </span>Numbered list</p>
+              <p><span className="font-mono">~~text~~</span> Strikethrough</p>
+              <p><span className="font-mono">&gt; </span>Quote</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Page Header - Date */}
       <div className="px-8 pt-6 pb-4 border-b border-stone-200">
         <p className="text-sm text-stone-500 font-serif italic">
@@ -41,14 +87,10 @@ export function NotebookPage({ page, onChange, isEditing, setIsEditing }: Notebo
         </p>
       </div>
 
-      {/* Content Area */}
+      {/* Content Area - Plain (no ruled lines) */}
       <div
         className="flex-1 px-8 py-6 overflow-auto cursor-text"
         onClick={() => !isEditing && setIsEditing(true)}
-        style={{
-          backgroundImage: 'linear-gradient(transparent 1.7rem, #e8e8e8 1.7rem)',
-          backgroundSize: '100% 1.8rem',
-        }}
       >
         {isEditing ? (
           <MarkdownEditor
