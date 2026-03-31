@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { getSubjectCoverImage } from '@/lib/unsplash';
 
 export async function GET() {
   try {
@@ -49,10 +50,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Fetch cover image from Unsplash
+    const coverImage = await getSubjectCoverImage(subject);
+
     const notebook = await prisma.notebook.create({
       data: {
         title,
         subject,
+        coverImage,
         userId: session.user.id,
         pages: {
           create: Array.from({ length: 100 }, (_, i) => ({

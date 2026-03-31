@@ -34,21 +34,36 @@ function getColorForSubject(subject: string): string {
 
 export function NotebookCover({ notebook, onClick }: NotebookCoverProps) {
   const gradientColor = getColorForSubject(notebook.subject);
+  const hasCoverImage = !!notebook.coverImage;
 
   return (
     <button
       onClick={onClick}
       className={`group relative w-48 h-64 rounded-r-lg rounded-l-sm shadow-xl
-                  bg-gradient-to-br ${gradientColor}
+                  ${!hasCoverImage ? `bg-gradient-to-br ${gradientColor}` : ''}
                   transform transition-all duration-300
                   hover:scale-105 hover:shadow-2xl hover:-translate-y-1
-                  focus:outline-none focus:ring-4 focus:ring-amber-400`}
+                  focus:outline-none focus:ring-4 focus:ring-amber-400
+                  overflow-hidden`}
     >
+      {/* Cover Image */}
+      {hasCoverImage && (
+        <>
+          <img
+            src={notebook.coverImage!}
+            alt={notebook.title}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
+        </>
+      )}
+
       {/* Spine */}
-      <div className="absolute left-0 top-0 bottom-0 w-4 bg-black/20 rounded-l-sm" />
+      <div className="absolute left-0 top-0 bottom-0 w-4 bg-black/30 rounded-l-sm z-10" />
 
       {/* Cover content */}
-      <div className="absolute inset-0 p-6 pl-8 flex flex-col items-center justify-center">
+      <div className="absolute inset-0 p-6 pl-8 flex flex-col items-center justify-center z-10">
         {/* Subject label */}
         <div className="bg-white/90 px-4 py-1 rounded-sm mb-4 shadow-sm">
           <span className="text-xs font-bold uppercase tracking-wider text-stone-700">
@@ -64,7 +79,7 @@ export function NotebookCover({ notebook, onClick }: NotebookCoverProps) {
       </div>
 
       {/* Page edges effect */}
-      <div className="absolute right-0 top-2 bottom-2 w-1 flex flex-col gap-px">
+      <div className="absolute right-0 top-2 bottom-2 w-1 flex flex-col gap-px z-10">
         {Array.from({ length: 8 }).map((_, i) => (
           <div key={i} className="flex-1 bg-white/40 rounded-r-sm" />
         ))}
@@ -72,7 +87,7 @@ export function NotebookCover({ notebook, onClick }: NotebookCoverProps) {
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10
-                      transition-colors duration-300 rounded-r-lg rounded-l-sm" />
+                      transition-colors duration-300 rounded-r-lg rounded-l-sm z-10" />
     </button>
   );
 }

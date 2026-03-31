@@ -2,6 +2,7 @@ export interface Notebook {
   id: string;
   title: string;
   subject: string;
+  coverImage?: string | null;
   userId: string;
   createdAt: Date;
   updatedAt: Date;
