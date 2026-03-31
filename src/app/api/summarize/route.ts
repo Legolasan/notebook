@@ -4,9 +4,11 @@ import OpenAI from 'openai';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) return null;
+  return new OpenAI({ apiKey });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,8 +38,10 @@ export async function POST(request: NextRequest) {
     }
 
     let bullets: string[];
+    const openai = getOpenAIClient();
 
     try {
+      if (!openai) throw new Error('No OpenAI API key');
       // Try OpenAI first
       const completion = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
