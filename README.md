@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Notebook App
 
-## Getting Started
+A beautiful note-taking app with realistic 3D page-flipping effects and AI-powered summaries.
 
-First, run the development server:
+## Features
+
+- **Realistic Notebook UI** - 3D page flip animations, notebook covers by subject
+- **Markdown Support** - Bold, italic, strikethrough, links, lists, code, headings
+- **AI Summaries** - OpenAI-powered bullet point summaries (with offline fallback)
+- **Offline Support** - Works offline, auto-syncs when back online
+- **Multi-user** - Email/password authentication
+- **Search** - Search across all notebooks or within current notebook
+- **100 Pages per Notebook** - Fixed page count like real notebooks
+- **No Delete** - Strikethrough only, like real notebooks!
+- **Motivational Quotes** - Random funny motivational quotes in page footers
+
+## Tech Stack
+
+- **Next.js** - React framework
+- **PostgreSQL** - Database
+- **Prisma** - ORM
+- **NextAuth** - Authentication
+- **OpenAI** - AI summaries
+- **Tailwind CSS** - Styling
+- **Zustand** - State management
+
+## Setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Set up environment variables
+
+Copy `.env.example` to `.env` and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+Update the following:
+- `DATABASE_URL` - Your PostgreSQL connection string
+- `NEXTAUTH_SECRET` - Generate with `openssl rand -base64 32`
+- `OPENAI_API_KEY` - Your OpenAI API key
+
+### 3. Set up the database
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Run migrations
+npx prisma migrate dev --name init
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Railway
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a new project on [Railway](https://railway.app)
+2. Add a PostgreSQL database
+3. Connect your GitHub repo
+4. Set environment variables:
+   - `DATABASE_URL` (auto-set by Railway PostgreSQL)
+   - `NEXTAUTH_URL` (your Railway app URL)
+   - `NEXTAUTH_SECRET`
+   - `OPENAI_API_KEY`
+5. Deploy!
 
-## Learn More
+## Keyboard Shortcuts (in editor)
 
-To learn more about Next.js, take a look at the following resources:
+- `Ctrl/Cmd + B` - Bold
+- `Ctrl/Cmd + I` - Italic
+- `Ctrl/Cmd + K` - Link
+- `Ctrl/Cmd + \`` - Inline code
+- `Enter` in lists - Auto-continue list
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── api/           # API routes
+│   ├── login/         # Login page
+│   ├── register/      # Register page
+│   ├── notebooks/     # Notebooks list & view
+│   └── page.tsx       # Home (redirects)
+├── components/
+│   ├── auth/          # Auth forms
+│   ├── editor/        # Markdown editor
+│   ├── notebook/      # Notebook components
+│   └── ui/            # Reusable UI components
+├── hooks/             # Custom React hooks
+├── lib/               # Utilities (prisma, auth, quotes)
+├── stores/            # Zustand stores
+└── types/             # TypeScript types
+```
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
