@@ -9,17 +9,13 @@ interface NotebookCoverProps {
 }
 
 const subjectColors: Record<string, string> = {
-  science: 'from-emerald-600 to-emerald-800',
-  mathematics: 'from-blue-600 to-blue-800',
-  history: 'from-amber-600 to-amber-800',
-  english: 'from-rose-600 to-rose-800',
-  geography: 'from-teal-600 to-teal-800',
-  physics: 'from-violet-600 to-violet-800',
-  chemistry: 'from-orange-600 to-orange-800',
-  biology: 'from-green-600 to-green-800',
-  literature: 'from-pink-600 to-pink-800',
-  art: 'from-purple-600 to-purple-800',
-  music: 'from-indigo-600 to-indigo-800',
+  'tech training': 'from-blue-600 to-blue-800',
+  'ai/llm': 'from-violet-600 to-violet-800',
+  'coding': 'from-emerald-600 to-emerald-800',
+  'general computer science': 'from-cyan-600 to-cyan-800',
+  'good to know': 'from-amber-600 to-amber-800',
+  'basics': 'from-teal-600 to-teal-800',
+  'interesting notes': 'from-rose-600 to-rose-800',
   default: 'from-stone-600 to-stone-800',
 };
 

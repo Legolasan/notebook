@@ -11,17 +11,13 @@ interface CreateNotebookModalProps {
 }
 
 const subjects = [
-  'Science',
-  'Mathematics',
-  'History',
-  'English',
-  'Geography',
-  'Physics',
-  'Chemistry',
-  'Biology',
-  'Literature',
-  'Art',
-  'Music',
+  'Tech Training',
+  'AI/LLM',
+  'Coding',
+  'General Computer Science',
+  'Good to Know',
+  'Basics',
+  'Interesting Notes',
   'Other',
 ];
 
