@@ -81,6 +81,21 @@ export default function NotebooksPage() {
     router.push(`/notebooks/${notebookId}`);
   };
 
+  const handleDeleteNotebook = async (notebookId: string) => {
+    try {
+      const res = await fetch(`/api/notebooks/${notebookId}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        setNotebooks((prev) => prev.filter((n) => n.id !== notebookId));
+        setFilteredNotebooks((prev) => prev.filter((n) => n.id !== notebookId));
+      }
+    } catch (error) {
+      console.error('Error deleting notebook:', error);
+    }
+  };
+
   if (status === 'loading' || isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-100 to-amber-50
@@ -136,6 +151,7 @@ export default function NotebooksPage() {
                 key={notebook.id}
                 notebook={notebook}
                 onClick={() => handleNotebookClick(notebook.id)}
+                onDelete={handleDeleteNotebook}
               />
             ))}
           </div>
