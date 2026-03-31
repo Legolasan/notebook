@@ -52,6 +52,10 @@ export function MarkdownEditor({ value, onChange, placeholder }: MarkdownEditorP
           e.preventDefault();
           insertMarkdown('`', '`');
           break;
+        case 'h':
+          e.preventDefault();
+          insertMarkdown('==', '==');
+          break;
       }
     }
 

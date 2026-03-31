@@ -63,6 +63,10 @@ export function NotebookPage({ page, onChange, isEditing, setIsEditing }: Notebo
               <span className="font-mono bg-stone-100 px-1 rounded">Ctrl+`</span>
               <span>`Code`</span>
             </div>
+            <div className="flex justify-between">
+              <span className="font-mono bg-stone-100 px-1 rounded">Ctrl+H</span>
+              <span className="bg-yellow-200 px-1 rounded-sm">Highlight</span>
+            </div>
             <hr className="my-2 border-stone-200" />
             <p className="text-stone-500 font-medium">Markdown Syntax</p>
             <div className="space-y-1">
@@ -71,6 +75,7 @@ export function NotebookPage({ page, onChange, isEditing, setIsEditing }: Notebo
               <p><span className="font-mono">- </span>Bullet list</p>
               <p><span className="font-mono">1. </span>Numbered list</p>
               <p><span className="font-mono">~~text~~</span> Strikethrough</p>
+              <p><span className="font-mono">==text==</span> Highlight</p>
               <p><span className="font-mono">&gt; </span>Quote</p>
             </div>
           </div>
